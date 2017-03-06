@@ -9,7 +9,7 @@
 using namespace std;
 
 template<typename T>
-void Function(const T &a)
+void Function(const T &a)//函数模板一般都需要传递至少一个模板变量，否则无法完成函数功能
 {
     T i;
     i = a;
