@@ -9,7 +9,8 @@
 using namespace std;
 
 template<typename T>
-void Function(const T &a)//函数模板一般都需要传递至少一个模板变量，否则无法完成函数功能
+/*函数模板一般都需要传递至少一个模板变量，否则无法完成函数功能*/
+void Function(const T &a)
 {
     T i;
     i = a;
@@ -18,6 +19,9 @@ void Function(const T &a)//函数模板一般都需要传递至少一个模板�
 
 int main()
 {
-    Function(1);//此处不能传字符串哦
+    string i = "123";
+    /*此处想传字符串必须先定义一个string变量，直接放字符串编译器会认为是数组，导致后面的 i = a 编译报错*/
+    Function(i);
+   
     return 0;
 }

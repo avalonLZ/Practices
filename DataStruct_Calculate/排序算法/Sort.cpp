@@ -1,6 +1,6 @@
 /*************************************************************************
 	> File Name: Sort.cpp
-	> Author: 
+	> Author:lizhong 
 	> Mail: 
 	> Created Time: Tue 07 Mar 2017 06:11:01 PM PST
  ************************************************************************/
@@ -18,6 +18,9 @@ class Data{
         Data(const T *a);
         void bubble_smalltobig();
         void select_bigtosmall();
+        void insert_bigtosmall();
+        void shell_smalltobig();
+        void quick_smalltobig();
         unsigned char datasize() const;
 };
 
@@ -62,12 +65,16 @@ void Data<T, SIZE>::bubble_smalltobig()
             }        
         }
     }
-
+    
     for(i = 0; i < SIZE; i++)
     {
-        cout << data[i] << endl;
+        cout << data[i] << " ";
     }
-    
+
+    if(i == SIZE)
+    {
+        cout << endl;
+    }    
 }
 
 template<typename T, unsigned char SIZE>
@@ -95,17 +102,82 @@ void Data<T, SIZE>::select_bigtosmall()
         }
     }
 
-    for(i = 0; i < SIZE; i++)
+     for(i = 0; i < SIZE; i++)
     {
-        cout << data[i] << endl;
+        cout << data[i] << " ";
     }
 
+    if(i == SIZE)
+    {
+        cout << endl;
+    }
 }
 
 template<typename T, unsigned char SIZE>
+void Data<T, SIZE>::insert_bigtosmall()
+{
+    cout << "*************************Insert:big to small*************************" << endl;
+    int i,j,k = 0;
+    T temp;
+    
+    /*取一个数去和可能插入的左方的数比较，如果该数大于左方的被比较数则移位，因为保证了之前就是大到小排列，所以排完一次就break*/
+    for(i = 1; i < SIZE; i++)
+    {
+        temp = data[i];
+
+        for(j = 0; j < i ; j++)
+        {
+            if(data[i] > data[j])
+            {
+                for(k = i - 1; k >= j; k--)
+                {
+                    data[k+1] = data[k];
+                }
+                data[j] = temp;
+                break;
+            }
+        }
+    }
+
+    for(i = 0; i < SIZE; i++)
+    {
+        cout << data[i] << " ";
+    }
+
+    if(i == SIZE)
+    {
+        cout << endl;
+    }
+}
+
+template<typename T, unsigned char SIZE>
+void Data<T, SIZE>::shell_smalltobig()
+{
+    int i,j;
+    int temp;
+
+    //for(;;)
+
+    for(i = 0; i < SIZE; i++)
+    {
+        cout << data[i] << " ";
+    }
+
+    if(i == SIZE)
+    {
+        cout << endl;
+    }
+}
+
+template<typename T, unsigned char SIZE>
+void Data<T, SIZE>::quick_smalltobig()
+{
+    
+}
+template<typename T, unsigned char SIZE>
 unsigned char Data<T, SIZE>::datasize() const
 {
-    cout << "***************************size********************************" << endl;
+    cout << "*******************************size********************************" << endl;
     return this->size;
 }
 
@@ -113,8 +185,10 @@ int main()
 {
     unsigned char i;
     Data<int ,10> one;
-    one.bubble_smalltobig();
-    one.select_bigtosmall();
+   // one.bubble_smalltobig();
+   // one.select_bigtosmall();
+    //one.insert_bigtosmall();
+    one.quick_smalltobig();
     i = one.datasize();
     cout << int(i) << endl;
     return 0;
