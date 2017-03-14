@@ -22,6 +22,7 @@ int main()
     pb->print();//执行B::print
     pa->printt();//执行A::printt
     pb->printt();//执行A::printt，因为printt不是虚函数，所以派生类无法重写printt方法
+    pb->printtt();//执行A::printtt定义虚函数，但派生类中没有重写，
     cout << "*****************************" << endl;
     pA.print();
     pA.printt();

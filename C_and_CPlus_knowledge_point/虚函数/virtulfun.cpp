@@ -19,6 +19,11 @@ void A::printt()
     cout << "Printt:Hello A!" << endl;
 }
 
+void A::printtt()
+{
+    cout << "Printtt:Hello A!" << endl;
+}
+
 void B::print()
 {
     cout << "Print:Hello B!" << endl;

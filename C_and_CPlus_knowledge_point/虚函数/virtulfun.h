@@ -13,6 +13,7 @@ class A
     public:
         virtual void print();//定义一个虚函数，派生类可以将其重写
         void printt();
+        virtual void printtt();
 };
 
 class B:public A
