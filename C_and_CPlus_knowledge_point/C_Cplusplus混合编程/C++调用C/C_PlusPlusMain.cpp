@@ -7,6 +7,7 @@
 
 #include<iostream>
 #include"C_Header.c"
+#include"C_Header.h"
 using namespace std;
 
 int main()
