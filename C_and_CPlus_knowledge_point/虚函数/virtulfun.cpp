@@ -26,6 +26,7 @@ void A::printtt()
 
 void B::print()
 {
+
     cout << "Print:Hello B!" << endl;
 }
 

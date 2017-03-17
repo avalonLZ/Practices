@@ -7,18 +7,6 @@
 
 #include<iostream>
 #include<string>
+#include"Simple_Hash_table.h"
 using namespace std;
 
-template<typename T>
-class Node
-{
-    private:
-        
-};
-
-
-int main()
-{
-    cout << "hello world!" << endl;
-    return 0;
-}
