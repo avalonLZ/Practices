@@ -8,7 +8,9 @@
 #ifndef _QUEUE_H
 #define _QUEUE_H
 
-    
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 template <typename T>
 class Queueclass 
@@ -17,25 +19,24 @@ class Queueclass
         typedef struct pnode
         {
             T *data;
-            struct pnode *front;
             struct pnode *behind;
+            unsigned long int ncount;
         }Node;
 
         typedef struct plist
         {
             Node *head;
             Node *end;
-            unsigned long int size;
+            unsigned long int count;
         }MyList;  
         
-        Node *head;
         MyList *queue;
 
     public:
         Queueclass();
-        unsigned long int Input(T temp);
-        void Output(T temp);
+        unsigned long int Input(T *temp);
+        T* Output(unsigned long int c);
         ~Queueclass();
-} 
+}; 
 
 #endif
