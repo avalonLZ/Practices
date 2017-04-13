@@ -14,7 +14,10 @@ int main()
     first.DataInput("four hello");
     first.DataInput("second hello");
     first.DataInput("three hello");
-    temp = first.DataOutput("three hello");
+    first.DataInput("th12345");
+    first.DataInput("th33333");
+    first.DataInput("th55555");
+    temp = first.DataOutput("th12345");
     
     cout << temp << endl;
     return 0;

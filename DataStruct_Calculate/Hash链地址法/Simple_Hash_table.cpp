@@ -20,13 +20,15 @@ void HashList::DataInput(const char *data)
 {
     unsigned char key = 0;
     unsigned char len = 0;
-
+    /*创建两个临时指针，一个存放新开辟的空间，一个作为链表头部地址的临时存储变量*/
+    Hnode *temp;
+    Hnode *firstlocation;
     len = strlen(data)+1;
     
     if(len >= 3)
     {
         key = ((unsigned char)data[0]+(unsigned char)data[1])%23;
-        //cout << "key = " << key << "len = " << len << endl;
+        //cout << hex << key << hex << len << endl;
         printf("key = %d\n", key);
         if(list[key] == NULL)
         {
@@ -37,19 +39,26 @@ void HashList::DataInput(const char *data)
         }
         else
         {
+            firstlocation = list[key];
             while(1)
             {
-                list[key] = list[key]->behind;
+                temp = list[key]->behind;
                 
-                if(list[key] == NULL)
-                {
+                if(temp == NULL)
+                { 
+                    temp = (Hnode *)malloc(sizeof(Hnode));
+                    temp->behind = NULL;
+                    temp->data = (char *)malloc(len);
+                    memcpy(temp->data, data, len);
+                    list[key]->behind = temp;
                     break;
                 }
-            }            
-            list[key] = (Hnode *)malloc(sizeof(Hnode));
-            list[key]->behind = NULL;
-            list[key]->data = (char *)malloc(len);
-            memcpy(list[key]->data, data, len);
+                else
+                {
+                    list[key] = list[key]->behind;
+                }
+            }
+            list[key] = firstlocation;
         }
     }
 }
