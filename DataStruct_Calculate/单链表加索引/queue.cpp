@@ -52,7 +52,6 @@ T* Queueclass<T>::Output(unsigned long int c)
         else
         {
             cout << "Find the element!" << endl;
-            break;
         }
     }
     return tempnode->data;

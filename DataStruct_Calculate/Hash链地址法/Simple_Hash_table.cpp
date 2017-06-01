@@ -66,6 +66,7 @@ void HashList::DataInput(const char *data)
 string HashList::DataOutput(const char *temp)
 {
     unsigned char key = 0;
+    /*取前两个字符的ASCII码和做除留余数法*/
     key = ((unsigned char)temp[0]+(unsigned char)temp[1])%23;
     string tstr = temp;
     string dstr = list[key]->data;
