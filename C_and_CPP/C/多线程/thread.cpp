@@ -27,7 +27,7 @@ int main()
 {
     pthread_t first;
     unsigned long int count = 100;
-    first = pthread_create(&first, NULL, FirstThread, &count);
+    pthread_create(&first, NULL, FirstThread, &count);
 
     while(1)
     {
