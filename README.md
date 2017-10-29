@@ -1,2 +1,2 @@
-# Project
-自己做的一些C/C++、Python以及数据结构和算法方面的相关练习
+# Practices
+自己做的一些日常练习(主要包括：数据结构与算法、C/C++、Python以及Lua等语言)
