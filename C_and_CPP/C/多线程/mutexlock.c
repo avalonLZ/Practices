@@ -49,7 +49,7 @@ int main(void)
     
     for(j = 0; j < 3; ++j)
     {
-        pthread_create(&threadinfo[j], NULL, Thread_Test, (void *)&i);//此处导致各线程不能同时start
+        pthread_create(&threadinfo[j], NULL, Thread_Test, (void *)&i);
     }
 
     for(j = 0; j < 3; ++j)
