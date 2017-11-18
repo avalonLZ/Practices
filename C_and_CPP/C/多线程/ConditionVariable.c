@@ -18,8 +18,9 @@ pthread_cond_t cond_test = PTHREAD_COND_INITIALIZER;
 void *One_Thread(void * tparam)
 {
     printf("One_Thread Start!\r\n");
-    //unsigned char i = *(unsigned char *)tparam;
     pthread_mutex_lock(&mutex_test);
+    
+    //解锁并等待条件变量信号，信号来后立即上锁继续执行该线程
     pthread_cond_wait(&cond_test, &mutex_test);
     printf("One_Thread Receive Signal\r\n");
     pthread_mutex_unlock(&mutex_test);
@@ -36,6 +37,8 @@ void *Two_Thread(void * tparam)
         if(j == 5)
         {
             printf("Two _Thread Ready Send Signal\r\n");
+            
+            //发送信号的线程可以不使用互斥锁，根据需求来设计
             pthread_cond_signal(&cond_test);
             printf("Two_Thread Send Signal OK\r\n");
         }
