@@ -54,7 +54,7 @@ int main(void)
 
     for(j = 0; j < 3; ++j)
     {
-        pthread_join(threadinfo[j], NULL);
+        pthread_join(threadinfo[j], NULL);//pthread_join用于等待线程结束
     }
     
     printf("All End\r\n");
