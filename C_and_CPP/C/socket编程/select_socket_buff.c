@@ -179,20 +179,6 @@ int main()
     }
     while(1)
     {
-        /*
-        //接收客户端传来的数据
-        rebuff = malloc(SIZE);
-        memset(rebuff, 0, SIZE);
-        
-        //注意传入confd，而不是sfd。阻塞，直到有收到东西,收到东西之后用recv函数接收下数据
-        //将select函数放到recv函数后将一直返回0，因为recv后缓冲区没有数据了
-        sel = Select(confd, 0);
-
-        //flags设置为0值则是阻塞的(默认阻塞)，并且接受完一次数据后接收缓冲区的数据会被清除
-        //因为先前socket设置了socket stream(使用面向连接的TCP协议)所以没有数据被丢失,具体表现为：
-        //SIZE过小会触发多次接收,每次relen的值最大为SIZE
-        relen = recv(confd, rebuff, SIZE, 0);
-        */
         relen = 0;
         memset(&myrecv, 0, sizeof(myrecv));
         myrecv = My_Recv(confd);
