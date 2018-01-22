@@ -18,7 +18,6 @@
 
 typedef struct
 {
-    //unsigned long int rdatasize;
     char *prdata[1024];
     int index;
     int selstate;
@@ -126,8 +125,7 @@ int main()
     int sfd,confd;
     struct sockaddr_in serveradd;
     char *rebuff;
-    char *sebuff;//= "I received the message!";
-    //char *psebuff;
+    char *sebuff;
     int i = 0, j = 0,k = 0, sel = 0;
     unsigned long int relen = 0;
     Redata_t myrecv = {0};
@@ -197,32 +195,29 @@ int main()
             }
             else
             {
-                relen = strlen("I received the message:");
-                    
-                for(i = 0;i < myrecv.index; ++i)
-                    relen += SIZE; 
-                relen += myrecv.lastsize;
+                printf("Receive Data is :\r\n");
                 
-                printf("index = %d, lastsize = %d, relen = %ld\r\n", myrecv.index, myrecv.lastsize, relen);
-                sebuff = malloc(relen);
-                strcpy(sebuff, "I received the message:");
-                    
-                for(i = 0;i < myrecv.index + 1; ++i)
+                //测试发现这样分开send依然会有粘帧效果，初步测是8k一大帧
+                for(i = 0;i < myrecv.index; ++i)
                 {
-                    //printf("myrecv.prdata[%d]:%s\r\n", i, myrecv.prdata[i]);
-                    strcat(sebuff, myrecv.prdata[i]);
+                    sebuff = malloc(SIZE);
+                    memcpy(sebuff, myrecv.prdata[i], SIZE);
+                    send(confd, sebuff, SIZE, 0);
+                    printf("%s", sebuff);
+                    free(sebuff);
                 }
-
-                printf("Receive Data is :%s\r\n", sebuff);      
-                send(confd, sebuff, relen, 0);
-                    
+                sebuff = malloc(myrecv.lastsize);
+                memcpy(sebuff, myrecv.prdata[myrecv.index], myrecv.lastsize);
+                send(confd, sebuff, myrecv.lastsize, 0);
+                printf("%s\r\n", sebuff);
+                
                 for(i = 0;i < myrecv.index + 1; ++i)
                 {
                     free(myrecv.prdata[i]);
                     printf("free myrecv.prdata[%d]\r\n", i);
-                }   
+                }
                 free(sebuff);
-                printf("free sebuff\r\n");//free大数组时报错                
+                printf("free sebuff\r\n");
             }
         }
         else
