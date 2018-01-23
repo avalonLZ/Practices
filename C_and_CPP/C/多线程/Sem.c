@@ -30,10 +30,19 @@ void *Two_Thread(void *tparam)
 
     for(i = 0; i <= 5; ++i)
     {
-        sleep(1);
+        //打印结果，说明信号量post后另一个线程只是进入了就绪态
+        //还需要等待该线程的时间片用完才会进入调度，跑另一线程
+        //Conditon则会挂起该线程，立即跳转到另一线程去执行
+        if(i < 3 )
+            sleep(1);
         printf("Two_Thread i value is:%d\r\n", i);
+
+        if(i == 3)
+        {
+            sem_post(&sem_test);
+            printf("Two_Thread Send Sem\r\n");
+        }
     }
-    sem_post(&sem_test);
     printf("Two_Thread End!\r\n");
 }
 
