@@ -47,6 +47,7 @@ int main()
     char *rebuff;
     char *sebuff;//= "I received the message!";
     int relen = 0,j = 0,k = 0, sel = 0;
+    
     /*初始化Socket,返回socket的文件描述符*/
     sfd = socket(AF_INET, SOCK_STREAM, 0);
     
@@ -58,8 +59,10 @@ int main()
     /*配置本服务器地址参数*/
     memset(&serveradd, 0, sizeof(struct sockaddr_in));
     serveradd.sin_family = AF_INET;
-    /*系统自动获取本机IP*/
+    
+    /*监听所有IP，INADDR_ANY等价于inet_addr("0.0.0.0");*/
     serveradd.sin_addr.s_addr = htonl(INADDR_ANY);
+    
     /*设置监听端口为DPORT*/
     serveradd.sin_port = htons(DPORT);
     
