@@ -34,6 +34,26 @@ static inline void debug_info2file(char *debug_info)
     my_mpoint;\
 })
 
+#define MY_CALLOC(my_cnmemb, my_csize) ({\
+    void *my_cpoint = NULL;\
+    char my_calloc_debug_info[DEBUG_INFOSIZEMAX];\
+    \
+    my_cpoint = calloc(my_cnmemb, my_csize);\
+    snprintf(my_calloc_debug_info, DEBUG_INFOSIZEMAX, "func:%s,line:%d,calloc_size:%d,calloc_ad:%p\r\n", __FUNCTION__, __LINE__, my_csize, my_cpoint);\
+    debug_info2file(my_calloc_debug_info);\
+    my_cpoint;\
+})
+
+#define MY_REALLOC(my_repoint_s, my_resize) ({\
+    void *my_repoint = NULL;\
+    char my_realloc_debug_info[DEBUG_INFOSIZEMAX];\
+    \
+    my_repoint = realloc(my_repoint_s, my_resize);\
+    snprintf(my_realloc_debug_info, DEBUG_INFOSIZEMAX, "func:%s,line:%d,realloc_size:%d,realloc_ad:%p\r\n", __FUNCTION__, __LINE__, my_resize, my_repoint);\
+    debug_info2file(my_realloc_debug_info);\
+    my_repoint;\
+})
+
 #define MY_FREE(my_fpoint) ({\
     char my_free_debug_info[DEBUG_INFOSIZEMAX];\
     \
