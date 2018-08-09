@@ -12,14 +12,29 @@
 #define DEBUG_INFOSIZEMAX 128
 
 #include<stdio.h>
+#include<time.h>
 
 static inline void debug_info2file(char *debug_info)
 {
     FILE *fd = NULL;
+    time_t now_time;
+    struct tm *now_time_tm;
+    char now_time_info[DEBUG_INFOSIZEMAX] = {0};
+
+    now_time = time(NULL);
+    now_time_tm = localtime(&now_time);
+    snprintf(now_time_info, DEBUG_INFOSIZEMAX, "%d-%d-%d %d:%d:%d:\r\n", \
+            now_time_tm->tm_year + 1900, \
+            now_time_tm->tm_mon + 1, \
+            now_time_tm->tm_mday, \
+            now_time_tm->tm_hour, \
+            now_time_tm->tm_min, \
+            now_time_tm->tm_sec);
 
     if((fd = fopen(DEBUG_INFOFILEDIR, "a+")) == NULL)
         return;
 
+    fprintf(fd, now_time_info); 
     fprintf(fd, debug_info);
     fclose(fd);
 }
