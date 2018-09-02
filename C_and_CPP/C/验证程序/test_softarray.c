@@ -12,13 +12,15 @@
 
 typedef struct
 {
-    char i;
+    int i;
+    int tlen; 
     char t[];
 }test_t;
 
 typedef struct
 {
-    char i;
+    int i;
+    int ii;
 }test_tt;
 
 int main(int argc, char *argv[])
@@ -33,10 +35,13 @@ int main(int argc, char *argv[])
     printf("before sizeof test_t is %d\r\n", sizeof(*pt));//1
    
     /*soft array test*/ 
-    pt = malloc(sizeof(test_t) + 10 * sizeof("hello"));
+    pt = malloc(sizeof(*pt) + sizeof("hello"));
+    pt->tlen = sizeof("hello");
     strcpy(pt->t, "hello");
-    printf("after sizeof test_t is %d\r\n", sizeof(test_t));//还是1
+    printf("after sizeof test_t is %d\r\n", sizeof(*pt));//还是1
     printf("after pt->t:%s\r\n", pt->t);
     
+    /*if t[1] is in test_t*/
+    //printf("after pt->t size is %d\r\n", sizeof(pt->t)); 
     return 0;
 }
