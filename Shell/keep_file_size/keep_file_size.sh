@@ -25,8 +25,8 @@ function keep_file_size()
 {
     file_size=`ls -l $1 | awk '{print $5}'`
     
-    #>1M
-    if [ ${file_size} -gt 1000000 ]
+    #>10K
+    if [ ${file_size} -gt 10000 ]
     then
         keep_file $1
     fi
