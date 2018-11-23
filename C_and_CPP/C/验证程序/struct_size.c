@@ -12,9 +12,10 @@
 
 typedef struct
 {
-    unsigned char z;
-    //unsigned long int i;
-    //unsigned char j;
+    //unsigned char z;
+    //注意，此处依然j依然会被gcc编译器对齐
+    unsigned int i;
+    unsigned char j;
     
 }TestSize_t;
 
@@ -22,6 +23,7 @@ typedef struct
 int main(void)
 {
     TestSize_t test;
+    printf("sizeof:%d\n", sizeof(unsigned int));
     printf("sizeof(test)Size is:%d\r\n", sizeof(test));
     printf("sizeof(TestSize_t)Size is:%d\r\n", sizeof(TestSize_t));
 }
