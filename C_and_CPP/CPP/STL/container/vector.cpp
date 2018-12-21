@@ -9,8 +9,17 @@
 #include<string>
 #include<string.h>
 #include<vector>
+#include<algorithm>
 
 using namespace std;
+
+
+void my_print(int element)
+{
+    static int i = 0;
+    cout << "NO." << i << "," << "element is:" << element << endl;
+    ++i;
+}
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +43,13 @@ int main(int argc, char *argv[])
 
     cout << "pop a value from vector..." << endl;
     v1.pop_back();
+
+    //删除第5个元素6
+    v1.erase(v1.begin() + 5);
     cout << "vector size is:" << v1.size() << endl;
+ 
+    //遍历打印所有元素
+    for_each(v1.begin(), v1.end(), &my_print);
+
     return 0;
 }
