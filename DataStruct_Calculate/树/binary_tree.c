@@ -45,7 +45,7 @@ void Create_Binary_Tree(int *i, int size, BinTree *T)
         memset(*T, 0, sizeof(BinNode));
 
         (*T)->Data = malloc(sizeof(int));
-        *((int *)((*T)->Data)) = i[size];
+        *(int *)(*T)->Data = i[size];
 
         //填充左子树
         if(size % 2)
