@@ -48,11 +48,13 @@ int main(int argc, char *argv[])
     v1.erase(v1.begin() + 5);
 
     //插入值为6的10个元素
-    v1.insert(v1.begin(), 10, 6);
+    //v1.insert(v1.begin(), 10, 6);
     cout << "vector size is:" << v1.size() << endl;
  
     //遍历打印所有元素
     for_each(v1.begin(), v1.end(), &my_print);
+
+    cout << "capacity is " << v1.capacity() << endl;
 
     return 0;
 }
