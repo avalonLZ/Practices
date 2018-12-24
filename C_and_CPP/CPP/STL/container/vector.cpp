@@ -56,5 +56,20 @@ int main(int argc, char *argv[])
 
     cout << "capacity is " << v1.capacity() << endl;
 
+    cout << "********************************************" << endl;
+    //验证push_back是深拷贝还是浅拷贝
+    int pre_copy_data[3] = {111,222,333};
+    v1.push_back(pre_copy_data[0]);
+    v1.push_back(pre_copy_data[1]);
+    v1.push_back(pre_copy_data[2]);
+    //遍历打印所有元素
+    for_each(v1.begin(), v1.end(), &my_print);
+    //改变源数据
+    pre_copy_data[0] = 100;
+    pre_copy_data[0] = 200;
+    pre_copy_data[0] = 300;
+    //遍历打印所有元素,不随源数据的改变而改变，说明是浅拷贝
+    for_each(v1.begin(), v1.end(), &my_print);
+
     return 0;
 }
