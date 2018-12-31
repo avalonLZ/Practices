@@ -14,7 +14,11 @@ using namespace std;
 class student
 {
     public:
-        student(){};
+
+        student()
+        {
+            cout << "struct_func" << endl;
+        };
 
         student(const student &)
         {
@@ -29,8 +33,13 @@ class student
 
 int main(int argc, char *argv[])
 {
-    student st, dt;
-
+    student st;//只调用构造函数
+    cout << "***********" << endl;
+    student dt = st;//只调用复制构造函数
+    cout << "***********" << endl;
+    student it = student(st);//只调用复制构造函数
+    cout << "***********" << endl;
+    //只调用复制构造函数和stprint函数
     //从结果可知，会调用到student的复制构造函数student(const student &)
     st.stprint(dt);
 
