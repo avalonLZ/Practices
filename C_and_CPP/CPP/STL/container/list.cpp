@@ -1,4 +1,4 @@
-/*************************************************************************
+/************************************************************************
 	> File Name: list.cpp
 	> Author:lizhong
 	> Mail:423810942@qq.com
@@ -35,5 +35,13 @@ int main(int argc, char *argv[])
     {
         cout << "value = " << *index << endl;
     }
-    return 0;
+
+    //双向迭代器不支持大小比较,以下内容会报错
+    //list<string>::iterator begin = l1.begin;
+    //if(begin < index)
+    //    cout << "begin < index" << endl;
+    //else
+    //    cout << "begin >= index" << endl;
+
+    //return 0;
 }
