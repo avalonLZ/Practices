@@ -10,6 +10,7 @@
 
 unsigned char quick(int *a, unsigned char low, unsigned char high)
 {
+    //temp为中轴值
     int temp = 0;
     temp = a[low];
     while(low < high)
@@ -44,6 +45,7 @@ unsigned char quick(int *a, unsigned char low, unsigned char high)
 
 void quicksort(int a[], unsigned char low, unsigned char high)
 {
+    //temp为中轴下标
     unsigned char temp = 0;
     
     if(low < high)
