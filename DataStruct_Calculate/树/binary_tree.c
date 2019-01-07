@@ -62,6 +62,8 @@ void Create_Binary_Tree2(int *i, int size, BinTree *Tree)
 {
     BinTree T = NULL;
     unsigned int deep = 0;//栈深度
+    
+    //存放一个node节点的地址，需要用二重指针
     BinTree *nodestack = NULL;//节点栈
     nodestack = malloc(size * sizeof(BinTree));
     
