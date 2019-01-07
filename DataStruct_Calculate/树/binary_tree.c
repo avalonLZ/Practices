@@ -36,6 +36,7 @@ typedef struct node
     struct node *rnode;
 }*BinTree, BinNode;
 
+//递归创建二叉树
 void Create_Binary_Tree(int *i, int size, BinTree *T)
 {
     if(size--)
@@ -54,6 +55,45 @@ void Create_Binary_Tree(int *i, int size, BinTree *T)
         else
             Create_Binary_Tree(i, size, &(*T)->rnode);
     }
+}
+
+//非递归创建二叉树（需使用栈）
+void Create_Binary_Tree2(int *i, int size, BinTree *Tree)
+{
+    BinTree T = NULL;
+    unsigned int deep = 0;//栈深度
+    BinTree *nodestack = NULL;//节点栈
+    nodestack = malloc(size * sizeof(BinTree));
+    
+    while(size--)
+    {
+        //实例一个节点
+        T = malloc(sizeof(BinNode));
+        memset(T, 0, sizeof(BinNode));
+
+        T->Data = malloc(sizeof(int));
+        *(int *)T->Data = i[deep];
+
+        if(deep == 0)
+        {
+            nodestack[deep] = T;
+            *Tree = T;
+        }
+        else if(nodestack[(deep - 1)/2]->lnode == NULL)
+        {
+            nodestack[(deep - 1)/2]->lnode = T;
+            nodestack[deep] = T;
+        }
+        else
+        {
+            nodestack[(deep - 1)/2]->rnode = T;
+            nodestack[deep] = T;
+        }
+        deep++;
+    }
+
+    free(nodestack);
+    nodestack = NULL;
 }
 
 void Destory_Binary_Tree(BinTree *T)
@@ -108,7 +148,7 @@ int main(int argc, char *argv[])
     i = Production_Element(MAX_SIZE);
 
     //填充数据至二叉树
-    Create_Binary_Tree(i, MAX_SIZE, &T);
+    Create_Binary_Tree2(i, MAX_SIZE, &T);
     free(i);
 
     //前序遍历

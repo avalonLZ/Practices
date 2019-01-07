@@ -154,8 +154,9 @@ int main(int argc, char *argv[])
     List_t lt = ListInit();
     ListAddNode(lt, "li", strlen("li")+1);
     ListAddNode(lt, "zhong", strlen("zhong")+1);
+    ListAddNode(lt, "zh", strlen("zh")+1);
     ListPrint(lt);
-    ListDeleteNode(lt, 1);
+    ListDeleteNode(lt, 3);
     ListPrint(lt);
     return 0;
 }
