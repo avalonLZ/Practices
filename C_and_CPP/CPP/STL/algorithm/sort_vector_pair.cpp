@@ -35,6 +35,13 @@ void v_init(vector< pair<int, int> > &vec)
     }
 }
 
+/*使用for_each算法替换自己遍历打印*/
+void v_eprint(pair<int, int> a)
+{
+    cout << "(" << a.first << "," << a.second << ")" << endl;
+}
+
+/*
 void v_print(const vector< pair<int, int> > &vec)
 {
     unsigned int i = 0;
@@ -50,17 +57,19 @@ void v_print(const vector< pair<int, int> > &vec)
         ++iter;
     }
 }
-
+*/
 int main(int argc, char *argv[])
 {
     vector< pair<int, int> >v;
    
     cout << "排序前:" << endl;
     v_init(v);
-    v_print(v);
+    for_each(v.begin(), v.end(), v_eprint);
+    //v_print(v);
 
     cout << "排序后:" << endl;
     sort(v.begin(), v.end(), v_compare);
-    v_print(v);
+    for_each(v.begin(), v.end(), v_eprint);
+    //v_print(v);
     return 0;
 }
