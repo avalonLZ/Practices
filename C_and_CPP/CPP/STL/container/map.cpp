@@ -20,15 +20,16 @@ int main(int argc, char *argv[])
 
     m1.insert(map<int, string>::value_type(2, "zhong"));
     m1.insert(pair<int, string> (1, "li"));
-    m1.insert(pair<int, string> (2, "def"));
+    m1.insert(pair<int, string> (2, "def"));//key重复，插入失败
     m1.insert(map<int, string>::value_type(2,"hjk"));
-    m1[3] = "abc";
+    m1.insert(make_pair(3, "lizhong"));
+    m1[3] = "abc";//key为3的value被修改为abc
 
     //迭代
     //一定需要在填充元素后再获取首元素，否则地址不对
     for(m1_index = 0, m1_iter = m1.begin(); m1_index < m1.size(); ++m1_index, ++m1_iter)
     {
-        cout << "index is " << m1_index << " " << "key is" << m1_iter->first << " " << "element is" << m1_iter->second << endl;
+        cout << "index is " << m1_index << " " << " key is " << m1_iter->first << " " << " element is " << m1_iter->second << endl;
     }
 
     //打印第2个元素,暂时只能想到用for加index的方式来找第n个key和value

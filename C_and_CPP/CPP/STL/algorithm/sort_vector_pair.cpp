@@ -13,7 +13,7 @@
 #include<cstdlib>
 #include<algorithm>
 
-#define PAIR_MAX 10
+#define PAIR_MAX 5
 
 using namespace std;
 
@@ -32,6 +32,7 @@ void v_init(vector< pair<int, int> > &vec)
     {
         //将两个0~99的数随机数作为pair放入vec中
         vec.push_back(make_pair(rand()%100, rand()%100));
+        vec.push_back(pair<int, int>(rand()%100, rand()%100));
     }
 }
 
