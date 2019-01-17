@@ -17,6 +17,7 @@ void string_test1(void)
     string s;
     s = "123";
     s += "sbc";
+    //.c_str方法会返回char *类型的指针
     cout << s.c_str() << endl;
 }
 
@@ -36,10 +37,20 @@ void string_test3(void)
     cout << "s1 = " << s1 << endl;
 }
 
+//测试读操作，超出string范围时
+//结果说明，若超出string范围，执行也不会报错，不会抛出异常，所以需要注意string的范围
+void string_test4(void)
+{
+    cout << "****************test4**************" << endl;
+    string s = "1234";
+    cout << s[10] << endl;
+}
+
 int main(int argc, char *argv[])
 {
     string_test1();
     string_test2();
     string_test3();
+    string_test4();
     return 0;
 }
