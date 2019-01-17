@@ -14,6 +14,8 @@ using namespace std;
 void small_to_big(int *a, unsigned int size)
 {
     //priority_queue升序排序,push后总是构建小顶堆
+    //priority_queue<>中的模版参数，其中第二个参数容器，表示priority_queue
+    //底层所采用的容器类型
     priority_queue< int, vector<int>, greater<int> > q;
     int i = 0;
 
