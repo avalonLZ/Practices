@@ -129,8 +129,10 @@ int main(int argc, char *argv[])
     cout << "t->c address:" << (void *)t->c << endl;
 
     cout << "student tt = *t:" << endl;
+    
     //注意此处只会调用拷贝构造函数
     //而不会调用构造函数
+    //与将变量之间作为形参传递的情况相同
     student tt = *t;
     cout << "tt.c address:" << (void *)tt.c << endl;
     
