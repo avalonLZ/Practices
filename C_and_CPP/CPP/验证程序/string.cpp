@@ -46,11 +46,26 @@ void string_test4(void)
     cout << s[10] << endl;
 }
 
+//测试find函数返回值
+int string_test5(void)
+{
+    cout << "****************test5**************" << endl;
+    string s = "abcd";
+
+    //find没找到是返回-1，但是打印出该值则不是-1
+    if(s.find('1') == -1)
+        cout << "没有元素'1'" << endl;
+    else
+        cout << s.find("c") << endl;
+
+}
+
 int main(int argc, char *argv[])
 {
     string_test1();
     string_test2();
     string_test3();
     string_test4();
+    string_test5();
     return 0;
 }
