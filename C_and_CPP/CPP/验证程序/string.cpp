@@ -60,6 +60,15 @@ int string_test5(void)
 
 }
 
+int string_test6(void)
+{
+    
+    cout << "****************tes6**************" << endl;
+    string s = "123456";
+    s.at(3) = 'a';
+    cout << s << endl;
+}
+
 int main(int argc, char *argv[])
 {
     string_test1();
@@ -67,5 +76,6 @@ int main(int argc, char *argv[])
     string_test3();
     string_test4();
     string_test5();
+    string_test6();
     return 0;
 }
