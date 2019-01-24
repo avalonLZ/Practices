@@ -115,7 +115,7 @@ void default_copy_equal(void)
     cout << "ttt.c address:" << (void *)ttt.c << endl;
 
     cout << "delete t:" << endl;
-    delete t;//可以发现，所有地址都一样，说明默认用的是深拷贝
+    delete t;//可以发现，所有地址都一样，说明默认用的是浅拷贝
     cout << "**********************************************" << endl;
 }
 

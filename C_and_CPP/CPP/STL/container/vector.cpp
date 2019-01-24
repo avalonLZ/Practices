@@ -66,9 +66,9 @@ int main(int argc, char *argv[])
     for_each(v1.begin(), v1.end(), &my_print);
     //改变源数据
     pre_copy_data[0] = 100;
-    pre_copy_data[0] = 200;
-    pre_copy_data[0] = 300;
-    //遍历打印所有元素,不随源数据的改变而改变，说明是浅拷贝
+    pre_copy_data[1] = 200;
+    pre_copy_data[2] = 300;
+    //遍历打印所有元素,不随源数据的改变而改变，说明是深拷贝
     for_each(v1.begin(), v1.end(), &my_print);
 
     return 0;
