@@ -60,6 +60,7 @@ int string_test5(void)
 
 }
 
+//测试string类的at方法
 int string_test6(void)
 {
     
@@ -67,6 +68,12 @@ int string_test6(void)
     string s = "123456";
     s.at(3) = 'a';
     cout << s << endl;
+}
+
+//测试.c_str方法和string的相互转换
+void string_test7(void)
+{
+    
 }
 
 int main(int argc, char *argv[])
