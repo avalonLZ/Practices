@@ -18,59 +18,15 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("lizhong");
 MODULE_DESCRIPTION("netlink server");
 
-/*kernel做为netlink的server端，无需起线程*/
-//内核线程必备头文件
-/*#include<linux/sched.h>
-#include<linux/kthread.h>
-#include<err.h>
-
-static struct task_struct *netlink_server = NULL;
-
-int netlink_server_run(void *data)
-{
-    if(kthread_should_stop())
-        break;
-
-}
-
-int netlink_server_init(void)
-{
-    netlink_server = kthread_create(netlink_server_run, NULL, "netlink_server");
-    
-    if(IS_ERR(netlink_server))
-    {
-        printk("Create netlink_server_thread fail!\n");
-        netlink_server = NULL;
-        return -1;
-    }
-    
-    wake_up_process(netlink_server);
-    return 0;
-}
-
-int netlink_server_exit(void)
-{
-    printk("netlink_server = 0x%x\n", netlink_server);
-
-    if(netlink_server)
-    {
-        kthread_stop(netlink_server);
-        netlink_server = NULL;
-    }
-
-    return 0;
-}
-*/
-
 //NETLINK_L最大只能为31
 //否则sock描述符无法创建成功
 #define NETLINK_LZ 31
-#define NETLINK_LZ_PORT 111
+//#define NETLINK_LZ_PORT 111
 #define NETLINK_REPLY_DATA "hello"
 
 static struct sock *sk;
 
-void netlink_server_reply(void)
+void netlink_server_reply(int pid)
 {
     struct sk_buff *nl_skb = NULL;
     struct nlmsghdr *nlh = NULL;
@@ -96,7 +52,7 @@ void netlink_server_reply(void)
     }
 
     memcpy(nlmsg_data(nlh), NETLINK_REPLY_DATA, msglen);
-    netlink_unicast(sk, nl_skb, NETLINK_LZ_PORT, MSG_DONTWAIT);
+    netlink_unicast(sk, nl_skb, pid, MSG_DONTWAIT);
 }
 
 void netlink_server_revmsg(struct sk_buff *skb)
@@ -108,8 +64,8 @@ void netlink_server_revmsg(struct sk_buff *skb)
     
     if(revmsg)
     {
-        printk("Netlink server revmsg:%s\n", revmsg);
-        netlink_server_reply();
+        printk("Netlink server revmsg:%s, client pid is %d\n", revmsg, nlh->nlmsg_pid);
+        netlink_server_reply(nlh->nlmsg_pid);
     }
     else
     {
