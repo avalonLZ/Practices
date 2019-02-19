@@ -23,6 +23,6 @@ struct test
 
 int main(int argc, char *argv[])
 {
-    printf("sizeof:%d\n", sizeof(test_t));
+    printf("sizeof:%d\n", sizeof(test_t));//32
     return 0;
 }
