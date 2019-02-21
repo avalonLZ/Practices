@@ -48,6 +48,8 @@ void Search_SameStr(char *samestr, char *str1, char *str2)
         {
             if(str1[i] == str2[j])
             {
+                //相同时，单独进行统计，之后有几个相同的字符
+                //这样不会影响目前的游标
                 temp_size = Search_SameStr2(str1 + i, str2 + j);
 
                 if(size < temp_size)
