@@ -12,15 +12,19 @@
 
 using namespace std;
 
+typedef map<int, string> mapiter;
+
 int main(int argc, char *argv[])
 {
+    pair<mapiter::iterator, bool> res;
     map<int, string> m1;
     map<int, string>::iterator m1_iter;// = m1.begin();
     int m1_index = 0;
 
     m1.insert(map<int, string>::value_type(2, "zhong"));
     m1.insert(pair<int, string> (1, "li"));
-    m1.insert(pair<int, string> (2, "def"));//key重复，插入失败
+    res = m1.insert(pair<int, string> (2, "def"));//key重复，插入失败
+    cout << "insert result:" << res.second << endl;
     m1.insert(map<int, string>::value_type(2,"hjk"));
     m1.insert(make_pair(3, "lizhong"));
     m1[3] = "abc";//key为3的value被修改为abc
