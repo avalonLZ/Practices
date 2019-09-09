@@ -13,57 +13,88 @@
 
 typedef struct
 {
-    unsigned int block_num;
+    unsigned int block_total;
+    unsigned int block_used;
     unsigned int block_size;
-    void *block;
+    void *block_addr;
 }mp_element_t;
 
 typedef struct
 {
-    mp_element_t *type;
-    unsigned int size;
-}mp_param_t;
+    mp_element_t *types;
+    unsigned int types_size;
+}mp_pool_t;
 
-void mempool_mem_check()
-{
-
-}
-
-void mempool_param_fill(mp_param_t *param, unsigned int type, ...)
+void mempool_print(mp_pool_t *pool)
 {
     int i = 0;
-    param->size = type;
-    param->type = (mp_element_t *)malloc(sizeof(mp_element_t) * type);
-    
-    va_list val = {0};
-    va_start(val, type);
-    printf("val = %d\n", *val);
 
-    for(i = 0; i < type; ++i)
+    for(i = 0; i < pool->types_size; ++i)
     {
-        int tmp_num = 0;
-        int tmp_size = 0;
-        tmp_num = va_arg(val, int);
-        tmp_size = va_arg(val, int);
-
-        param->type[i].block_num = tmp_num;
-        param->type[i].block_size = tmp_size;
-        param->type[i].block = malloc(tmp_num * tmp_size);
+        printf("这是第%d个分区,包含%d个块,使用了%d个块,每块大小为%d,初始地址为%ld\n", 
+                i + 1, pool->types[i].block_total, pool->types[i].block_used, pool->types[i].block_size, pool->types[i].block_addr);
     }
-    va_end(val);
 }
 
-void *mempool_init(mp_param_t *param)
+mp_pool_t *mempool_init(unsigned int types_size, ...)
 {
-    mempool_param_fill(param, 2, 34, 4, 5, 6);
-    return NULL;
+    int i = 0;
+    mp_pool_t *mp = NULL;
+
+    mp = (mp_pool_t *)malloc(sizeof(mp_pool_t));
+    
+    mp->types_size = types_size;
+    mp->types = (mp_element_t *)malloc(sizeof(mp_element_t) * types_size);
+    memset(mp->types, 0, sizeof(mp_element_t) * types_size);
+    
+    va_list val = {0};
+    va_start(val, types_size);
+
+    //printf("val = %s\n", *val);
+
+    for(i = 0; i < types_size; ++i)
+    {
+        int tmp_total = 0;
+        int tmp_size = 0;
+        tmp_total = va_arg(val, int);
+        tmp_size = va_arg(val, int);
+
+        mp->types[i].block_total = tmp_total;
+        mp->types[i].block_size = tmp_size;
+        mp->types[i].block_addr = malloc(tmp_total * tmp_size);
+    }
+    va_end(val);
+
+    return mp;
+}
+
+void *malloc_mem_from_mp(mp_pool_t *pool, unsigned int signal_block_size, unsigned int need_block)
+{
+    int i = 0;
+    
+    for(i = 0; i < pool->types_size; ++i)
+    {
+        unsigned int remain_block = pool->types[i].block_total - pool->types[i].block_used;
+        if(remain_block >= need_block && pool->types[i].block_size == signal_block_size)
+        {
+            pool->types[i].block_used += need_block;
+
+        }
+    }
+}
+
+void free_mem_to_mp()
+{
+    
 }
 
 int main(int argc, char *argv[])
 {
-    void *mempool = NULL;
-    mp_param_t mp_param = {0};
+    mp_pool_t *mempool = NULL;
 
-    mempool = mempool_init(&mp_param);
+    mempool = mempool_init(2, 34, 4, 5, 6);
+
+    mempool_print(mempool);
+
     return 0;
 }
