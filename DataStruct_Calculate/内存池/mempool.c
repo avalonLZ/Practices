@@ -68,7 +68,7 @@ mp_pool_t *mempool_init(unsigned int types_size, ...)
     return mp;
 }
 
-void *malloc_mem_from_mp(mp_pool_t *pool, unsigned int signal_block_size, unsigned int need_block)
+void *malloc_mem_from_mp(mp_pool_t *pool, unsigned int need_block, unsigned int signal_block_size)
 {
     int i = 0;
     
@@ -77,24 +77,51 @@ void *malloc_mem_from_mp(mp_pool_t *pool, unsigned int signal_block_size, unsign
         unsigned int remain_block = pool->types[i].block_total - pool->types[i].block_used;
         if(remain_block >= need_block && pool->types[i].block_size == signal_block_size)
         {
-            pool->types[i].block_used += need_block;
+            void *tmp_addr = NULL;
 
+            tmp_addr = pool->types[i].block_used * pool->types[i].block_size + pool->types[i].block_addr;
+            pool->types[i].block_used += need_block;
+            
+            return tmp_addr;
         }
+        else
+            return NULL;
     }
 }
 
-void free_mem_to_mp()
+void free_mem_to_mp(mp_pool_t *pool, unsigned int need_block, unsigned int signal_block_size)
 {
-    
+    int i = 0;
+
+    for(i = 0; i < pool->types_size; ++i)
+    {
+        if(pool->types[i].block_size == signal_block_size && need_block <= pool->types[i].block_used)
+        {
+            pool->types[i].block_used -= need_block;
+        }
+    }
 }
 
 int main(int argc, char *argv[])
 {
     mp_pool_t *mempool = NULL;
+    void *addr = NULL;
 
     mempool = mempool_init(2, 34, 4, 5, 6);
 
     mempool_print(mempool);
+
+    addr = malloc_mem_from_mp(mempool, 10, 4);
+    memset(addr, 1, 40);
+    printf("addr is %ld\n", addr);
+    
+    addr = malloc_mem_from_mp(mempool, 5, 4);
+    memset(addr, 2, 4);
+    printf("addr is %ld\n", addr);
+
+    free_mem_to_mp(mempool, 5, 4);
+    addr = malloc_mem_from_mp(mempool, 1, 4);
+    printf("addr is %ld\n", addr);
 
     return 0;
 }
