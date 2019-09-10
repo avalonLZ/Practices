@@ -3,7 +3,7 @@
 	> Author:lizhong
 	> Mail:423810942@qq.com
 	> Created Time:Fri 06 Sep 2019 09:28:59 AM PDT
-	> Instruction:input: 3,1024;2,128;
+	> Instruction:input: 设计存在问题,不用
  ************************************************************************/
 #include<stdio.h>
 #include<string.h>
