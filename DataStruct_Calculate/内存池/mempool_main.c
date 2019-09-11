@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     addr = (int *)malloc_from_mp(mp, sizeof(int));
     printf("addr = %ld\n", addr);
-    free_to_mp(addr);
+    free_to_mp(mp, addr);
     printf("addr = %ld\n", addr);
     addr = (int *)malloc_from_mp(mp, sizeof(int));
     printf("addr = %ld\n", addr);

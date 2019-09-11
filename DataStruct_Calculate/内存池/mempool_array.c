@@ -85,7 +85,7 @@ void *malloc_from_mp(mem_pool_t *mp, unsigned int mem_block_size)
                 if(mp->mem_pool_node[i].mem_block_array[j].flag.used == 0)
                 {
                     mp->mem_pool_node[i].mem_block_array[j].flag.used = 1;
-                    printf("flag set 1 addr:%ld\n", &mp->mem_pool_node[i].mem_block_array[j].flag);
+                    printf("addr:%ld, flag set 1 addr:%ld\n", &mp->mem_pool_node[i].mem_block_array[j].addr, &mp->mem_pool_node[i].mem_block_array[j].flag);
                     return mp->mem_pool_node[i].mem_block_array[j].addr;
                 }
             }
@@ -94,18 +94,21 @@ void *malloc_from_mp(mem_pool_t *mp, unsigned int mem_block_size)
     return NULL;
 }
 
-void free_to_mp(void *addr)
+void free_to_mp(mem_pool_t *mp, void *addr)
 {
-    mem_block_flag_t *flag = NULL;
-    flag = *(mem_block_flag_t **)((unsigned char *)&addr - sizeof(void *));
+    int i = 0;
+    int j = 0;
 
-
-    printf("addr:%ld, flag set 0 addr:%ld\n", addr, flag);
-
-    if(flag->used == 1)
+    for(i = 0; i < mp->mem_pool_node_size; ++i)
     {
-        flag->used = 0;
-        addr = NULL;
+        for(j = 0; j < mp->mem_pool_node[i].mem_block_array_size; ++j)
+        {
+            if(mp->mem_pool_node[i].mem_block_array[j].flag.used == 1)
+            {
+                mp->mem_pool_node[i].mem_block_array[j].flag.used = 0;
+                return;
+            }
+        }
     }
 }
 
