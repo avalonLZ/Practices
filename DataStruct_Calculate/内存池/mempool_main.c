@@ -14,16 +14,16 @@
 
 int main(int argc, char *argv[])
 {
-    int *addr = NULL;
+    void *addr = NULL;
     mem_pool_t *mp = NULL;
-    mp = mem_pool_init(2, 3, sizeof(int), 5, sizeof(char));
+    mp = mem_pool_init(2, 3, 16, 5, sizeof(char));
 
 
-    addr = (int *)malloc_from_mp(mp, sizeof(int));
-    printf("addr = %ld\n", addr);
-    free_to_mp(mp, addr);
-    printf("addr = %ld\n", addr);
-    addr = (int *)malloc_from_mp(mp, sizeof(int));
-    printf("addr = %ld\n", addr);
+    addr = malloc_from_mp(mp, 16);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
+    free_to_mp(addr);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
+    addr = malloc_from_mp(mp, 16);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
     return 0;
 }

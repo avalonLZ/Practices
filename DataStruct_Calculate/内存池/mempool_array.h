@@ -16,7 +16,7 @@ typedef struct
 //定义了具体的内存块地址和该块内存是否被使用
 typedef struct
 {
-    mem_block_flag_t flag;
+    mem_block_flag_t *flag;
     void *addr;
 }mem_block_t;
 
@@ -37,7 +37,7 @@ typedef struct
 
 mem_pool_t *mem_pool_init(unsigned int types, ...);
 void *malloc_from_mp(mem_pool_t *mp, unsigned int mem_block_size);
-void free_to_mp(mem_pool_t *mp, void *addr);
+void free_to_mp(void *addr);
 
 #endif
 

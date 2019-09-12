@@ -62,8 +62,10 @@ mem_pool_t *mem_pool_init(unsigned int types, ...)
 
         for(j = 0; j < mem_block_array_size; ++j)
         {
-            mp->mem_pool_node[i].mem_block_array[j].addr = malloc(mem_block_size);
-            printf("addr:%ld\n", mp->mem_pool_node[i].mem_block_array[j].addr);
+            mp->mem_pool_node[i].mem_block_array[j].flag = malloc(sizeof(mem_block_flag_t) + mem_block_size);
+            mp->mem_pool_node[i].mem_block_array[j].addr = mp->mem_pool_node[i].mem_block_array[j].flag +
+                sizeof(mem_block_flag_t);
+            memset(mp->mem_pool_node[i].mem_block_array[j].flag, 0, sizeof(mem_block_flag_t));
         }
     }
 
@@ -82,10 +84,9 @@ void *malloc_from_mp(mem_pool_t *mp, unsigned int mem_block_size)
         {
             for(j = 0; j < mp->mem_pool_node[i].mem_block_array_size; ++j)
             {
-                if(mp->mem_pool_node[i].mem_block_array[j].flag.used == 0)
+                if(mp->mem_pool_node[i].mem_block_array[j].flag->used == 0)
                 {
-                    mp->mem_pool_node[i].mem_block_array[j].flag.used = 1;
-                    printf("addr:%ld, flag set 1 addr:%ld\n", &mp->mem_pool_node[i].mem_block_array[j].addr, &mp->mem_pool_node[i].mem_block_array[j].flag);
+                    mp->mem_pool_node[i].mem_block_array[j].flag->used = 1;
                     return mp->mem_pool_node[i].mem_block_array[j].addr;
                 }
             }
@@ -94,22 +95,12 @@ void *malloc_from_mp(mem_pool_t *mp, unsigned int mem_block_size)
     return NULL;
 }
 
-void free_to_mp(mem_pool_t *mp, void *addr)
+void free_to_mp(void *addr)
 {
-    int i = 0;
-    int j = 0;
+    mem_block_flag_t *flag = NULL;
 
-    for(i = 0; i < mp->mem_pool_node_size; ++i)
-    {
-        for(j = 0; j < mp->mem_pool_node[i].mem_block_array_size; ++j)
-        {
-            if(mp->mem_pool_node[i].mem_block_array[j].flag.used == 1)
-            {
-                mp->mem_pool_node[i].mem_block_array[j].flag.used = 0;
-                return;
-            }
-        }
-    }
+    flag = addr - sizeof(mem_block_flag_t);
+    flag->used = 0;
 }
 
 
