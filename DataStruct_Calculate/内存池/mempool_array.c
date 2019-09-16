@@ -60,12 +60,27 @@ mem_pool_t *mem_pool_init(unsigned int types, ...)
         mp->mem_pool_node[i].mem_block_array_size = mem_block_array_size; 
         mp->mem_pool_node[i].mem_block_size = mem_block_size;
 
-        for(j = 0; j < mem_block_array_size; ++j)
+        mp->mem_pool_node[i].mem_block_array[0].flag = 
+            malloc((sizeof(mem_block_flag_t) + mem_block_size) * mem_block_array_size); 
+        memset(mp->mem_pool_node[i].mem_block_array[0].flag, 0, 
+                (sizeof(mem_block_flag_t) + mem_block_size) * mem_block_array_size);
+
+        mp->mem_pool_node[i].mem_block_array[0].addr = 
+            mp->mem_pool_node[i].mem_block_array[0].flag + sizeof(mem_block_flag_t);
+
+        for(j = 1; j < mem_block_array_size; ++j)
         {
-            mp->mem_pool_node[i].mem_block_array[j].flag = malloc(sizeof(mem_block_flag_t) + mem_block_size);
-            mp->mem_pool_node[i].mem_block_array[j].addr = mp->mem_pool_node[i].mem_block_array[j].flag +
-                sizeof(mem_block_flag_t);
-            memset(mp->mem_pool_node[i].mem_block_array[j].flag, 0, sizeof(mem_block_flag_t));
+            mp->mem_pool_node[i].mem_block_array[j].flag = 
+                mp->mem_pool_node[i].mem_block_array[j - 1].flag + 
+                sizeof(mem_block_flag_t) + mem_block_size;
+
+            mp->mem_pool_node[i].mem_block_array[j].addr = 
+                mp->mem_pool_node[i].mem_block_array[j - 1].addr + 
+                sizeof(mem_block_flag_t) + mem_block_size;
+
+            printf("FUNCTION:%s, i:%d, j:%d, addr:%ld, flag:%ld\n",
+                    __FUNCTION__, i, j, mp->mem_pool_node[i].mem_block_array[j].addr, 
+                    mp->mem_pool_node[i].mem_block_array[j].flag);
         }
     }
 

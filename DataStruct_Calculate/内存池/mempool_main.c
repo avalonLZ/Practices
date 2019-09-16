@@ -21,7 +21,14 @@ int main(int argc, char *argv[])
 
     addr = malloc_from_mp(mp, 16);
     printf("%s addr:%ld\n", __FUNCTION__, addr);
+    memset(addr, 5, 16);
     free_to_mp(addr);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
+    addr = malloc_from_mp(mp, 16);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
+    addr = malloc_from_mp(mp, 16);
+    printf("%s addr:%ld\n", __FUNCTION__, addr);
+    addr = malloc_from_mp(mp, 16);
     printf("%s addr:%ld\n", __FUNCTION__, addr);
     addr = malloc_from_mp(mp, 16);
     printf("%s addr:%ld\n", __FUNCTION__, addr);
