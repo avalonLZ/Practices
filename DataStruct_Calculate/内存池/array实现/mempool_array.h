@@ -2,7 +2,6 @@
 	> File Name: mempool_array.h
 	> Author:lizhong
 	> Mail:423810942@qq.com
-	> Created Time:Tue 10 Sep 2019 01:48:16 AM PDT
 	> Instruction:
  ************************************************************************/
 #ifndef _MEMPOOL_ARRAY_H

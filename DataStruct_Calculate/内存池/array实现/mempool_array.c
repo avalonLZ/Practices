@@ -2,7 +2,6 @@
 	> File Name: mempool_array.c
 	> Author:lizhong
 	> Mail:423810942@qq.com
-	> Created Time:Mon 09 Sep 2019 06:34:04 PM PDT
 	> Instruction:
  ************************************************************************/
 #include<stdio.h>

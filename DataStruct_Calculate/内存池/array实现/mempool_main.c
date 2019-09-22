@@ -2,7 +2,6 @@
 	> File Name: mempool_u.c
 	> Author:lizhong
 	> Mail:423810942@qq.com
-	> Created Time:Mon 09 Sep 2019 06:33:07 PM PDT
 	> Instruction:
  ************************************************************************/
 #include<stdio.h>
