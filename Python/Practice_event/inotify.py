@@ -94,7 +94,7 @@ class DirEvent(object):
         return self.__event_handler
 
 
-def main():
+def inotify():
 
     file_event = FileEvent()
     dir_event = DirEvent()
@@ -113,14 +113,15 @@ def main():
     #dir_handler = MyDirEventHandler()
 
     wm = WatchManager()
-    wm.add_watch(dir_event.get_path(), dir_event.get_muti_event(),\
+    wm.add_watch(dir_event.get_path(), dir_event.get_muti_event(),
                  dir_event.get_event_handler())
     #可以这样使用，同时监听，不同路径/文件的不同操作
-    wm.add_watch(file_event.get_path(), file_event.get_muti_event(),\
+    wm.add_watch(file_event.get_path(), file_event.get_muti_event(),
                  file_event.get_event_handler())
 
     notifier = Notifier(wm)
     notifier.loop()
 
-main()
+if __name__ == '__main__':
+    inotify()
 
