@@ -6,6 +6,8 @@ from pyinotify import ProcessEvent, EventsCodes, WatchManager, \
     Notifier
 from time import sleep
 from threading import Thread
+from setproctitle import setproctitle
+from os import getpid
 
 class MyDirEventThread():
     def dir_create_thread(self):
@@ -95,6 +97,8 @@ class DirEvent(object):
 
 
 def inotify():
+    setproctitle('event-report')
+    print('EventReport %d Process start...' % getpid())
 
     file_event = FileEvent()
     dir_event = DirEvent()
@@ -120,6 +124,7 @@ def inotify():
                  file_event.get_event_handler())
 
     notifier = Notifier(wm)
+    print('inotify loop...')
     notifier.loop()
 
 if __name__ == '__main__':
