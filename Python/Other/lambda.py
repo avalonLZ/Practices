@@ -23,6 +23,7 @@ def lambda_2():
     lambda_func_2 = lambda x,y : l2(x, y)
     print(lambda_func_2(xy.x, xy.y))
 
+
 if __name__ == '__main__':
     lambda_1()
     lambda_2()
