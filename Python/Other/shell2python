@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+function shell2python()
+{
+    python ./shell2python.py
+    echo $?
+}
+
+shell2python
