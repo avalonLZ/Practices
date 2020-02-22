@@ -55,7 +55,7 @@ class FileEvent(object):
     def __init__(self):
         self.__muti_event = 0
         self.__event_handler = None
-        self.__path = None
+        self.__path = ''
 
         self.__path = self.__file_init()
         self.__muti_event = EventsCodes.FLAG_COLLECTIONS['OP_FLAGS']['IN_MODIFY']
@@ -78,7 +78,7 @@ class DirEvent(object):
     def __init__(self):
         self.__muti_event = 0
         self.__event_handler = None
-        self.__path = None
+        self.__path = ''
 
         self.__path = self.__dir_init()
         self.__muti_event = EventsCodes.FLAG_COLLECTIONS['OP_FLAGS']['IN_CREATE']\
