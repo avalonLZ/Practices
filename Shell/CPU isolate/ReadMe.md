@@ -1,0 +1,1 @@
+CPU隔离脚本，根据CPU index去转换成CPU num，再利用kernel启动参数isolcpus去进行CPU隔离
